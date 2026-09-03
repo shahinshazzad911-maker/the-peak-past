@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Peak Past | Shahin</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --accent-gold: #f59e0b;
+            --accent-cyan: #06b6d4;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+        }
+
+        /* Anti-Select & Copy Protection */
+        body {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        .glow-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(245, 158, 11, 0.05) 0%, transparent 40%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 8%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            padding-top: 6rem;
+        }
+
+        .hero-badge {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--accent-gold), #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: #fff;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+
+        .btn-warning {
+            background: #f59e0b;
+            color: #000;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            margin-right: 0.5rem;
+        }
+
+        /* Cards Layout */
+        section { padding: 5rem 8%; }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-cyan);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: transform 0.3s, border-color 0.3s;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .card-excerpt {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Post Reading Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 4rem 10%;
+        }
+
+        .modal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .modal-img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .modal-body {
+            font-size: 1.1rem;
+            color: #d1d5db;
+            white-space: pre-line;
+            line-height: 1.8;
+        }
+
+        /* Admin Section */
+        #admin-panel {
+            display: none;
+            background: #0f172a;
+            border-top: 2px solid var(--accent-gold);
+        }
+
+        .form-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .admin-manage-list {
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+
+        .manage-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Footer / Document Section */
+        footer {
+            text-align: center;
+            padding: 4rem 10% 2rem 10%;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            background: #070a12;
+        }
+
+        .author-doc {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .author-doc h3 {
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.3rem; }
+            .nav-links { display: none; }
+            .modal { padding: 2rem 5%; }
+            .manage-item { flex-direction: column; gap: 0.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="glow-bg"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">The Peak Past</div>
+        <ul class="nav-links">
+            <li><a href="#about">আমার চিন্তা</a></li>
+            <li><a href="#content">প্রকাশিত কনটেন্ট</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-badge"><i class="fa-solid fa-pen-nib"></i> লেখক | গবেষক | সচেতন পাঠক</div>
+        <h1>আমি <span>শাহীন</span>। অগোচরে থাকা সত্য ও স্মৃতির সন্ধান করি।</h1>
+        <p>বাচ্চাদের থেকে শেখা অভিজ্ঞতার আলো এবং প্রাতিষ্ঠানিক বুদ্ধিজীবীদের এড়িয়ে যাওয়া ঐতিহাসিক সত্যগুলোকে বস্তুনিষ্ঠভাবে উপস্থাপন করাই আমার মূল লক্ষ্য।</p>
+        <div class="cta-buttons">
+            <a href="#content" class="btn btn-primary">লেখাগুলো পড়ুন</a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">আমার ভাবনার ক্ষেত্র</h2>
+        <div class="cards-grid">
+            <div class="card" style="padding: 1.5rem; cursor: default;">
+                <i class="fa-solid fa-graduation-cap" style="font-size: 2rem; color: var(--accent-gold); margin-bottom: 1rem;"></i>
+                <h3>অভিজ্ঞতার আদান-প্রদান</h3>
+                <p style="color: var(--text-muted);">শিক্ষণ প্রক্রিয়া কোনো একমুখী যাত্রা নয়। বাচ্চাদের শেখাতে গিয়ে দেখেছি, তাদের কৌতূহল ও উন্মুক্ত চিন্তা একজন প্রাপ্তবয়স্ক মানুষকেও নতুন দৃষ্টিভঙ্গি দেয়।</p>
+            </div>
+            <div class="card" style="padding: 1.5rem; cursor: default;">
+                <i class="fa-solid fa-book-archive" style="font-size: 2rem; color: var(--accent-gold); margin-bottom: 1rem;"></i>
+                <h3>ইতিহাসের নেপথ্য কথা</h3>
+                <p style="color: var(--text-muted);">ইতিহাসের অনেক বড় অধ্যায় স্বার্থের খাতিরে গোপন রাখা হয়েছে। তথাকথিত বুদ্ধিজীবীদের এড়িয়ে যাওয়া সত্য ঘটনাগুলো তুলে ধরাই আমার অগ্রাধিকার।</p>
+            </div>
+            <div class="card" style="padding: 1.5rem; cursor: default;">
+                <i class="fa-solid fa-book-open-reader" style="font-size: 2rem; color: var(--accent-gold); margin-bottom: 1rem;"></i>
+                <h3>একাডেমিক ও অন্যান্য বিষয়</h3>
+                <p style="color: var(--text-muted);">একাডেমিক বিষয়ের সহজ বিশ্লেষণ এবং সমাজ-জীবনের নানা ভাবনা নিয়ে নিয়মিত দৃষ্টিভঙ্গি প্রকাশ করা।</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content / Blog Section -->
+    <section id="content">
+        <h2 class="section-title">প্রকাশিত কনটেন্টসমূহ</h2>
+        <div class="cards-grid" id="posts-container">
+            <!-- Dynamic Posts Load Here -->
+        </div>
+    </section>
+
+    <!-- Secure Admin Panel (Hidden Completely) -->
+    <section id="admin-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 750px; margin: 0 auto 1.5rem auto;">
+            <h2 style="color: var(--accent-gold);"><i class="fa-solid fa-user-shield"></i> Secure Admin Control</h2>
+            <button onclick="logoutAdmin()" class="btn btn-danger">Logout</button>
+        </div>
+        
+        <div class="form-container">
+            <h3 id="form-heading" style="margin-bottom: 1.5rem; color: var(--accent-cyan);">নতুন পোস্ট যুক্ত করুন</h3>
+            <form id="postForm">
+                <input type="hidden" id="editIndex" value="-1">
+                <div class="form-group">
+                    <label>কনটেন্টের শিরোনাম (Title)</label>
+                    <input type="text" id="postTitle" placeholder="যেমন: ইতিহাসের অজানা এক অধ্যায়" required>
+                </div>
+                <div class="form-group">
+                    <label>ক্যাটাগরি</label>
+                    <select id="postCategory">
+                        <option value="ইতিহাসের সত্য">ইতিহাসের সত্য</option>
+                        <option value="একাডেমিক">একাডেমিক</option>
+                        <option value="শিশু মনস্তত্ত্ব">শিশু মনস্তত্ত্ব</option>
+                        <option value="অন্যান্য চিন্তা">অন্যান্য চিন্তা</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>কভার ছবি যুক্ত করুন (ঐচ্ছিক / Optional)</label>
+                    <input type="file" id="postImageFile" accept="image/*">
+                    <small style="color: var(--text-muted);">*ছবি না দিলে পূর্বের ছবি অথবা ডিফল্ট কভার সেট হবে।</small>
+                </div>
+                <div class="form-group">
+                    <label>মূল বিষয়বস্তু / বিবরণ</label>
+                    <textarea id="postContent" rows="8" placeholder="আপনার লেখাটি এখানে বিস্তারিত লিখুন..." required></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;">পাবলিশ করুন</button>
+            </form>
+
+            <!-- Admin Manage/Remove/Edit Section -->
+            <div class="admin-manage-list">
+                <h3 style="margin-bottom: 1rem; color: #f3f4f6;">পোস্ট তালিকা (Edit & Remove)</h3>
+                <div id="admin-posts-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Post Details Modal -->
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <span id="modalCategory" class="tag"></span>
+            <h1 id="modalTitle" style="margin-top: 0.5rem; color: #fff;"></h1>
+            <p id="modalDate" style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem;"></p>
+            <img id="modalImage" src="" class="modal-img">
+            <div id="modalBody" class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Footer & Author Document -->
+    <footer>
+        <div class="author-doc">
+            <h3><i class="fa-solid fa-user-circle"></i> লেখক তথ্য / Document</h3>
+            <p><strong>নাম:</strong> শাহীন (Shahin)</p>
+            <p><strong>পরিচয়:</strong> শিক্ষার্থী, পাঠক, লেখক ও স্বাধীন গবেষক।</p>
+            <p><strong>প্ল্যাটফর্ম:</strong> The Peak Past (ইতিহাসের লুকানো সত্য ও চিন্তাভাবনার সংকলন)</p>
+        </div>
+        <p style="margin-top: 2rem; font-size: 0.85rem; color: #4b5563;">&copy; The Peak Past | Created by Shahin. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript Security & Functionality -->
+    <script>
+        // Anti-Copy Logic
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'p')) {
+                e.preventDefault();
+            }
+        });
+
+        const DEFAULT_COVER = "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=600";
+
+        const defaultPosts = [
+            {
+                title: "বুদ্ধিজীবীদের নীরবতা ও নিখোঁজ ইতিহাস",
+                category: "ইতিহাসের সত্য",
+                image: "https://images.unsplash.com/photo-1461360370896-922624d12aa1?q=80&w=600",
+                content: "যাদের আমরা পৃথিবীর বড় চিন্তাবিদ মনে করি, নিজেদের স্বার্থে তারা ইতিহাসের অনেক গুরুত্বপূর্ণ তথ্য গোপন রেখেছিলেন। প্রাতিষ্ঠানিক সিলেবাস এবং ইতিহাসের পাতায় যেভাবে সুবিধাজনক বর্ণনা জায়গা পায়, ঠিক উল্টো দিকে বহু সত্য ঘটনা নীরবে চাপা পড়ে যায়। গবেষণামূলক দৃষ্টিভঙ্গি দিয়ে সেই আড়ালে থাকা সত্যি ঘটনাগুলোকে পাঠকদের সামনে আনার প্রয়াসই এই লেখার উদ্দেশ্য।",
+                date: "২০২৬-০৫-১২"
+            }
+        ];
+
+        let isAdminLoggedIn = false;
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
+        function getPosts() {
+            const stored = localStorage.getItem('shahin_portfolio_posts');
+            return stored ? JSON.parse(stored) : defaultPosts;
+        }
+
+        function renderPosts() {
+            const postsContainer = document.getElementById('posts-container');
+            const adminPostsList = document.getElementById('admin-posts-list');
+            const posts = getPosts();
+            
+            postsContainer.innerHTML = '';
+            if(adminPostsList) adminPostsList.innerHTML = '';
+
+            posts.forEach((post, index) => {
+                // Public Cards
+                const cardHTML = `
+                    <div class="card" onclick="openPostModal(${index})">
+                        <img src="${post.image}" class="card-img" onerror="this.src='${DEFAULT_COVER}'">
+                        <div class="card-body">
+                            <span class="tag">${escapeHTML(post.category)}</span>
+                            <h3>${escapeHTML(post.title)}</h3>
+                            <div class="card-excerpt">${escapeHTML(post.content)}</div>
+                            <div class="card-footer">
+                                <span><i class="fa-regular fa-calendar"></i> ${post.date}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                postsContainer.innerHTML += cardHTML;
+
+                // Admin Manage List Items
+                if (isAdminLoggedIn && adminPostsList) {
+                    const manageHTML = `
+                        <div class="manage-item">
+                            <div>
+                                <strong style="color: #fff;">${escapeHTML(post.title)}</strong>
+                                <br><small style="color: var(--text-muted);">${post.date} | ${post.category}</small>
+                            </div>
+                            <div>
+                                <button onclick="editPost(${index})" class="btn-warning">এডিট করুন</button>
+                                <button onclick="deletePost(${index})" class="btn-danger">রিমুভ করুন</button>
+                            </div>
+                        </div>
+                    `;
+                    adminPostsList.innerHTML += manageHTML;
+                }
+            });
+        }
+
+        // Hidden Admin Trigger via Shortcut: Ctrl + Shift + A (Always Triggerable)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+                e.preventDefault();
+                loginAdmin();
+            }
+        });
+
+        // Secret Admin Login Function
+        function loginAdmin() {
+            if (isAdminLoggedIn) {
+                document.getElementById('admin-panel').style.display = 'block';
+                window.location.href = "#admin-panel";
+                return;
+            }
+
+            const pwd = prompt("সিক্রেট অ্যাডমিন পাসওয়ার্ড দিন:");
+            
+            // If user cancels or gives empty input
+            if (pwd === null) return;
+
+            if (pwd === "@1234") {
+                const quote = prompt("সিক্রেট কোটেশনটি লিখুন:");
+                
+                if (quote === null) return;
+
+                // Flexible quote check
+                if (quote.trim().toLowerCase().replace(/['"]/g, '') === "ei achi ei nai") {
+                    isAdminLoggedIn = true;
+                    document.getElementById('admin-panel').style.display = 'block';
+                    renderPosts();
+                    window.location.href = "#admin-panel";
+                    alert("স্বাগতম শাহীন! এক্সেস গ্রান্টেড।");
+                } else {
+                    alert("ভুল সিক্রেট কোটেশন! প্রবেশাধিকার অস্বীকৃত। আবার চেষ্টা করতে Ctrl + Shift + A চাপুন।");
+                }
+            } else {
+                alert("ভুল পাসওয়ার্ড! আবার চেষ্টা করতে Ctrl + Shift + A চাপুন।");
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            document.getElementById('admin-panel').style.display = 'none';
+            renderPosts();
+            alert("লগআউট সম্পন্ন হয়েছে।");
+            window.location.href = "#content";
+        }
+
+        // Post Reading Modal
+        function openPostModal(index) {
+            const posts = getPosts();
+            const post = posts[index];
+
+            document.getElementById('modalTitle').innerText = post.title;
+            document.getElementById('modalCategory').innerText = post.category;
+            document.getElementById('modalDate').innerText = 'প্রকাশের তারিখ: ' + post.date;
+            document.getElementById('modalImage').src = post.image || DEFAULT_COVER;
+            document.getElementById('modalBody').innerText = post.content;
+
+            document.getElementById('postModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('postModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Edit Post Logic
+        function editPost(index) {
+            const posts = getPosts();
+            const post = posts[index];
+
+            document.getElementById('editIndex').value = index;
+            document.getElementById('postTitle').value = post.title;
+            document.getElementById('postCategory').value = post.category;
+            document.getElementById('postContent').value = post.content;
+            
+            document.getElementById('form-heading').innerText = "পোস্ট সম্পাদনা (Edit Post)";
+            document.getElementById('submitBtn').innerText = "আপডেট করুন (Update)";
+            window.location.href = "#admin-panel";
+        }
+
+        // Form Submit (Add or Edit)
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!isAdminLoggedIn) return;
+
+            const editIndex = parseInt(document.getElementById('editIndex').value);
+            const title = document.getElementById('postTitle').value.trim();
+            const category = document.getElementById('postCategory').value;
+            const content = document.getElementById('postContent').value.trim();
+            const fileInput = document.getElementById('postImageFile');
+            
+            const posts = getPosts();
+            const today = new Date();
+            const dateStr = today.toISOString().split('T')[0];
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    savePostData(editIndex, title, category, e.target.result, content, dateStr);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                const existingImg = editIndex >= 0 ? posts[editIndex].image : DEFAULT_COVER;
+                savePostData(editIndex, title, category, existingImg, content, dateStr);
+            }
+        });
+
+        function savePostData(editIndex, title, category, image, content, date) {
+            const posts = getPosts();
+
+            if (editIndex >= 0) {
+                // Update Post
+                posts[editIndex] = { title, category, image, content, date: posts[editIndex].date };
+                alert('পোস্টটি সফলভাবে আপডেট করা হয়েছে!');
+            } else {
+                // Create New Post
+                posts.unshift({ title, category, image, content, date });
+                alert('নতুন পোস্ট সফলভাবে পাবলিশ করা হয়েছে!');
+            }
+
+            try {
+                localStorage.setItem('shahin_portfolio_posts', JSON.stringify(posts));
+                resetAdminForm();
+                renderPosts();
+                window.location.href = "#content";
+            } catch (err) {
+                alert("ছবিটির আকার অনেক বড়! ছোট ছবি ব্যবহার করুন।");
+            }
+        }
+
+        function resetAdminForm() {
+            document.getElementById('postForm').reset();
+            document.getElementById('editIndex').value = "-1";
+            document.getElementById('form-heading').innerText = "নতুন পোস্ট যুক্ত করুন";
+            document.getElementById('submitBtn').innerText = "পাবলিশ করুন";
+        }
+
+        // Delete/Remove Post Function
+        function deletePost(index) {
+            if (confirm("আপনি কি নিশ্চিত যে এই পোস্টটি মুছে ফেলবেন?")) {
+                const posts = getPosts();
+                posts.splice(index, 1);
+                localStorage.setItem('shahin_portfolio_posts', JSON.stringify(posts));
+                renderPosts();
+                alert("পোস্টটি রিমুভ করা হয়েছে।");
+            }
+        }
+
+        // Initial Load
+        renderPosts();
+    </script>
+</body>
+</html>
